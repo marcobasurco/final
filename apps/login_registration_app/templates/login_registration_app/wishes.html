@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+
+    <title>The Wishing App</title>
+    <style>
+        .container{
+            padding-top: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand"></a>
+        <h1>Hello Michelle!</h1>
+        <a href="/logout/" class="btn btn-warning my-2 my-sm-0">Logout</a>
+        <a href="/wishes/stats/" class="btn btn-primary my-2 my-sm-0">View stats</a> 
+        <a href="new/" class="btn btn-success my-2 my-sm-0">Make a wish!</a>
+    </nav>
+    <div class="container">
+        <h1>Your wish list:</h1>
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Date added</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for wish in wishes %}
+                        <tr>
+                            <td>{{wish.wish}}</td>
+                            <td>{{wish.created_at}}</td>
+                            <td><a href="/wishes/remove/{{wish.id}}"><u>Remove</u> | <a href="/wishes/edit/{{wish.id}}"> <u>Edit</u> | </a><a href="/wishes/grantWish/{{wish.id}}"><u>Granted</u>!</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table><br><br>
+                <h1>Granted wishes:</h1>
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Wisher</th>
+                            <th scope="col">Date added</th>
+                            <th scope="col">Date Granted</th>
+                            <th scope="col">Likes</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for wish in wishes %}
+                        {% if wish.is_GrantedWish == True %}
+                        <tr>
+                            <td>{{wish.wish}}</td>
+                            <td>{{wish.poster.first_name}}</td>
+                            <td>{{wish.created_at}}</td>
+                            <td>{{wish.updated_at}}</td>
+                            <td>{{request.session.likes}}</td>
+                            <td><a href="/wishes/like/{{wish.id}}"><u>Like</u></td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    
+
+    </div>
+            
+
+
+
+
+
+
+    
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
