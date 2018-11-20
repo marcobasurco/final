@@ -58,7 +58,7 @@ def logout(request):
 
 def wishes(request):
     if "userId" not in request.session:
-        return redirect('/')
+        return redirect('/')git 
 
     wishes = Wish.objects.all().order_by('-created_at')
     show = {
